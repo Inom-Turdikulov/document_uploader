@@ -1,0 +1,122 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+
+<div class="uploader-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-4 align-self-center">
+        <p>First login and select Shell:</p>
+      </div>
+      <div class="col-4  align-self-center">
+        <p class="text-center">Download data via Google Takeout: (directions)</p>
+      </div>
+      <div class="col-4  align-self-center">
+        <p class="text-center">Your Points</p>
+      </div>
+    </div>
+    <div class="row steps-container">
+      <div class="col-4 align-self-center step1">
+        <div class="form-group">
+          <button type="button" id="shellLogin" class="btn btn-primary">Login to Crabbr</button>
+        </div>
+
+        <div class="form-group">
+          <label for="shellSelect">And select shell to upload to:</label>
+          <select id="shellSelect" class="custom-select">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-4 text-center align-self-center step2">
+        <input id="jsonDrop" multiple="multiple" name="files[]" type="file" class="json-drop" />
+        <div class="drop-zone">
+          <div class="form-group border-primary rounded" data-toggle="drop-container">
+            <p class="mb-2">Drag & Drop files here...</p>
+            <div class="btn btn-primary">Or browser files to convert</div>
+            <div id="totalFiles" class="text-sm filesbadge fade"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 text-center align-self-center">
+        <div class="embed-responsive embed-responsive-16by9 map-default">
+          <div class="embed-responsive-item" id="google_map"></div>
+          <button id="pointsUpload" type="button" class="btn btn-primary btn-block">Upload Points</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="pointsTableFormCollapse" class="container collapse">
+    <div class="row">
+      <div class="col-6">
+        <p class="h2">Your points to upload:</p>
+      </div>
+      <div class="col-6 align-self-center text-right">
+        <div class="switcher-label">Select All/None</div>
+
+        <div class="switcher-default">
+          <input type="checkbox" class="invisble" id="slectPointsSwitcher" checked="checked">
+          <label for="slectPointsSwitcher" class="switcher">
+            <span id="on"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive-sm points-table-w">
+      <form id="pointsTableForm" action="https://postman-echo.com/post" method="post">
+        <table class="table table-bordered table-striped table-sm points-table" id="points-table">
+        <thead>
+        <tr>
+          <th class="item1">
+            Include
+          </th>
+          <th class="item2">Place Name</th>
+          <th class="item3">Address</th>
+          <th class="item4">Review</th>
+          <th class="item5">Rating</th>
+          <th class="item6">Date Upload</th>
+          <th class="item7">Lat</th>
+          <th class="item8">Long</th>
+          <th class="item9">Google CID</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="js/vendor/modernizr-3.6.0.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.slim.min.js"><\/script>')</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.js" integrity="sha256-82SVOjZ1qLdrq8VUmAisFapCSq1bpgavtXQaDGLPAAg=" crossorigin="anonymous"></script>
+<script defer src="js/plugins.js"></script>
+<script defer src="js/main.js"></script>
+</body>
+
+</html>

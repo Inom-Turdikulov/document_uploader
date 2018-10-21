@@ -1,0 +1,160 @@
+{
+  "type" : "FeatureCollection",
+  "features" : [
+    {
+      "geometry" : {
+        "coordinates" : [ -73.9151476, 40.7633802 ],
+        "type" : "Point"
+      },
+      "properties" : {
+        "Google Maps URL" : "http://maps.google.com/?cid=18371411157999637612",
+        "Location" : {
+          "Address" : "30-13 Steinway Street, Astoria, NY 11103, United States",
+          "Business Name" : "Rizzo's Fine Pizza (form Review)",
+          "Country Code" : "US",
+          "Geo Coordinates" : {
+            "Latitude" : "40.7633802",
+            "Longitude" : "-73.9151476"
+          }
+        },
+        "Published" : "2016-05-12T05:40:20Z",
+        "Review Comment" : "Clean, nice pizza!",
+        "Star Rating" : 5,
+        "Updated" : "2016-05-12T05:40:20Z"
+      },
+      "type" : "Feature"
+    },
+    {
+    "geometry" : {
+      "coordinates" : [ -87.6315923, 41.8947204 ],
+      "type" : "Point"
+    },
+    "properties" : {
+      "Google Maps URL" : "http://maps.google.com/?cid=16038223373350264271",
+      "Location" : {
+        "Address" : "111 West Huron Street, Chicago, IL 60654, United States",
+        "Business Name" : "Hotel Felix",
+        "Country Code" : "US",
+        "Geo Coordinates" : {
+          "Latitude" : "41.8947204",
+          "Longitude" : "-87.6315923"
+        }
+      },
+      "Published" : "2016-05-12T05:40:20Z",
+      "Review Comment" : "Clean, nice hotel",
+      "Star Rating" : 5,
+      "Updated" : "2016-05-12T05:40:20Z"
+    },
+    "type" : "Feature"
+  }, {
+    "geometry" : {
+      "coordinates" : [ -81.4285587, 28.4016613 ],
+      "type" : "Point"
+    },
+    "properties" : {
+      "Google Maps URL" : "http://maps.google.com/?cid=9462379289666072712",
+      "Location" : {
+        "Address" : "4040 Central Florida Parkway, Orlando, FL 32837, United States",
+        "Business Name" : "JW Marriott Orlando, Grande Lakes",
+        "Country Code" : "US",
+        "Geo Coordinates" : {
+          "Latitude" : "28.4016613",
+          "Longitude" : "-81.4285587"
+        }
+      },
+      "Published" : "2016-04-21T04:29:51Z",
+      "Review Comment" : "Food was great! Did not stay in the hotel.",
+      "Star Rating" : 5,
+      "Updated" : "2016-04-21T04:29:51Z"
+    },
+    "type" : "Feature"
+  }, {
+    "geometry" : {
+      "coordinates" : [ -71.0700948, 42.3620711 ],
+      "type" : "Point"
+    },
+    "properties" : {
+      "Google Maps URL" : "http://maps.google.com/?cid=8748728760628086083",
+      "Location" : {
+        "Address" : "215 Charles Street, Boston, MA 02114, United States",
+        "Business Name" : "The Liberty, a Luxury Collection Hotel, Boston",
+        "Country Code" : "US",
+        "Geo Coordinates" : {
+          "Latitude" : "42.3620711",
+          "Longitude" : "-71.0700948"
+        }
+      },
+      "Published" : "2016-03-23T05:02:54Z",
+      "Review Comment" : "Stay was good",
+      "Star Rating" : 4,
+      "Updated" : "2016-03-23T05:02:54Z"
+    },
+    "type" : "Feature"
+  }, {
+    "geometry" : {
+      "coordinates" : [ -117.1607766, 32.7080257 ],
+      "type" : "Point"
+    },
+    "properties" : {
+      "Google Maps URL" : "http://maps.google.com/?cid=8691251456052229943",
+      "Location" : {
+        "Address" : "401 K Street, San Diego, CA 92101, United States",
+        "Business Name" : "Hilton San Diego Gaslamp Quarter",
+        "Country Code" : "US",
+        "Geo Coordinates" : {
+          "Latitude" : "32.7080257",
+          "Longitude" : "-117.1607766"
+        }
+      },
+      "Published" : "2016-03-01T05:07:41Z",
+      "Review Comment" : "Very accommodating staff, nice room, overall nice place to stay.",
+      "Star Rating" : 4,
+      "Updated" : "2016-03-01T05:07:41Z"
+    },
+    "type" : "Feature"
+  }, {
+    "geometry" : {
+      "coordinates" : [ -0.1211190, 51.5192710 ],
+      "type" : "Point"
+    },
+    "properties" : {
+      "Google Maps URL" : "http://maps.google.com/?cid=13078120856998279594",
+      "Location" : {
+        "Address" : "50 - 60 Southampton Row, London WC1B 4AR, United Kingdom",
+        "Business Name" : "Grange Holborn Hotel",
+        "Country Code" : "GB",
+        "Geo Coordinates" : {
+          "Latitude" : "51.5192710",
+          "Longitude" : "-0.1211190"
+        }
+      },
+      "Published" : "2015-12-24T05:24:46Z",
+      "Review Comment" : "Great location, clean rooms and friendly staff.",
+      "Star Rating" : 4,
+      "Updated" : "2015-12-24T05:24:46Z"
+    },
+    "type" : "Feature"
+  }, {
+    "geometry" : {
+      "coordinates" : [ -3.2218226, 55.9465785 ],
+      "type" : "Point"
+    },
+    "properties" : {
+      "Google Maps URL" : "http://maps.google.com/?cid=5250980781840865972",
+      "Location" : {
+        "Address" : "9 - 11 Coates Gardens, Edinburgh EH12 5LG, United Kingdom",
+        "Business Name" : "The Lairg Hotel",
+        "Country Code" : "GB",
+        "Geo Coordinates" : {
+          "Latitude" : "55.9465785",
+          "Longitude" : "-3.2218226"
+        }
+      },
+      "Published" : "2015-12-01T05:20:31Z",
+      "Review Comment" : "Everything was great and breakfast.in the morning hit the spot!",
+      "Star Rating" : 4,
+      "Updated" : "2015-12-01T05:20:31Z"
+    },
+    "type" : "Feature"
+  } ]
+}

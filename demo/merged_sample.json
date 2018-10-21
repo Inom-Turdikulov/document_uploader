@@ -1,0 +1,87 @@
+{
+  "type": "object",
+  "required": [],
+  "properties": {
+    "type": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [],
+        "properties": {
+          "geometry": {
+            "type": "object",
+            "required": [],
+            "properties": {
+              "coordinates": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "type": {
+                "type": "string"
+              }
+            }
+          },
+          "properties": {
+            "type": "object",
+            "required": [],
+            "properties": {
+              "Google Maps URL": {
+                "type": "string"
+              },
+              "Location": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "Address": {
+                    "type": "string"
+                  },
+                  "Business Name": {
+                    "type": "string"
+                  },
+                  "Country Code": {
+                    "type": "string"
+                  },
+                  "Geo Coordinates": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                      "Latitude": {
+                        "type": "string"
+                      },
+                      "Longitude": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "Published": {
+                "type": "string"
+              },
+              "Review Comment": {
+                "type": "string"
+              },
+              "Star Rating": {
+                "type": "number"
+              },
+              "Updated": {
+                "type": "string"
+              }
+            }
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

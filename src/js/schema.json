@@ -1,0 +1,230 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "type",
+    "features"
+  ],
+  "properties": {
+    "type": {
+      "$id": "#/properties/type",
+      "type": "array",
+      "title": "The Type Schema",
+      "items": {
+        "$id": "#/properties/type/items",
+        "type": "string",
+        "title": "The Items Schema",
+        "default": "",
+        "examples": [
+          "FeatureCollection",
+          "FeatureCollection"
+        ],
+        "pattern": "^(.*)$"
+      }
+    },
+    "features": {
+      "$id": "#/properties/features",
+      "type": "array",
+      "title": "The Features Schema",
+      "items": {
+        "$id": "#/properties/features/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "required": [
+          "geometry",
+          "properties",
+          "type"
+        ],
+        "properties": {
+          "geometry": {
+            "$id": "#/properties/features/items/properties/geometry",
+            "type": "object",
+            "title": "The Geometry Schema",
+            "required": [
+              "coordinates",
+              "type"
+            ],
+            "properties": {
+              "coordinates": {
+                "$id": "#/properties/features/items/properties/geometry/properties/coordinates",
+                "type": "array",
+                "title": "The Coordinates Schema",
+                "items": {
+                  "$id": "#/properties/features/items/properties/geometry/properties/coordinates/items",
+                  "type": "number",
+                  "title": "The Items Schema",
+                  "default": 0.0,
+                  "examples": [
+                    -87.6315923,
+                    41.8947204
+                  ]
+                }
+              },
+              "type": {
+                "$id": "#/properties/features/items/properties/geometry/properties/type",
+                "type": "string",
+                "title": "The Type Schema",
+                "default": "",
+                "examples": [
+                  "Point"
+                ],
+                "pattern": "^(.*)$"
+              }
+            }
+          },
+          "properties": {
+            "$id": "#/properties/features/items/properties/properties",
+            "type": "object",
+            "title": "The Properties Schema",
+            "required": [
+              "Google Maps URL",
+              "Location",
+              "Published",
+              "Review Comment",
+              "Star Rating",
+              "Updated"
+            ],
+            "properties": {
+              "Google Maps URL": {
+                "$id": "#/properties/features/items/properties/properties/properties/Google Maps URL",
+                "type": "string",
+                "title": "The Google maps url Schema",
+                "default": "",
+                "examples": [
+                  "http://maps.google.com/?cid=16038223373350264271"
+                ],
+                "pattern": "^(.*)$"
+              },
+              "Location": {
+                "$id": "#/properties/features/items/properties/properties/properties/Location",
+                "type": "object",
+                "title": "The Location Schema",
+                "required": [
+                  "Address",
+                  "Business Name",
+                  "Country Code",
+                  "Geo Coordinates"
+                ],
+                "properties": {
+                  "Address": {
+                    "$id": "#/properties/features/items/properties/properties/properties/Location/properties/Address",
+                    "type": "string",
+                    "title": "The Address Schema",
+                    "default": "",
+                    "examples": [
+                      "111 West Huron Street, Chicago, IL 60654, United States"
+                    ],
+                    "pattern": "^(.*)$"
+                  },
+                  "Business Name": {
+                    "$id": "#/properties/features/items/properties/properties/properties/Location/properties/Business Name",
+                    "type": "string",
+                    "title": "The Business name Schema",
+                    "default": "",
+                    "examples": [
+                      "Hotel Felix"
+                    ],
+                    "pattern": "^(.*)$"
+                  },
+                  "Country Code": {
+                    "$id": "#/properties/features/items/properties/properties/properties/Location/properties/Country Code",
+                    "type": "string",
+                    "title": "The Country code Schema",
+                    "default": "",
+                    "examples": [
+                      "US"
+                    ],
+                    "pattern": "^(.*)$"
+                  },
+                  "Geo Coordinates": {
+                    "$id": "#/properties/features/items/properties/properties/properties/Location/properties/Geo Coordinates",
+                    "type": "object",
+                    "title": "The Geo coordinates Schema",
+                    "required": [
+                      "Latitude",
+                      "Longitude"
+                    ],
+                    "properties": {
+                      "Latitude": {
+                        "$id": "#/properties/features/items/properties/properties/properties/Location/properties/Geo Coordinates/properties/Latitude",
+                        "type": "string",
+                        "title": "The Latitude Schema",
+                        "default": "",
+                        "examples": [
+                          "41.8947204"
+                        ],
+                        "pattern": "^(.*)$"
+                      },
+                      "Longitude": {
+                        "$id": "#/properties/features/items/properties/properties/properties/Location/properties/Geo Coordinates/properties/Longitude",
+                        "type": "string",
+                        "title": "The Longitude Schema",
+                        "default": "",
+                        "examples": [
+                          "-87.6315923"
+                        ],
+                        "pattern": "^(.*)$"
+                      }
+                    }
+                  }
+                }
+              },
+              "Published": {
+                "$id": "#/properties/features/items/properties/properties/properties/Published",
+                "type": "string",
+                "title": "The Published Schema",
+                "default": "",
+                "examples": [
+                  "2016-05-12T05:40:20Z"
+                ],
+                "pattern": "^(.*)$"
+              },
+              "Review Comment": {
+                "$id": "#/properties/features/items/properties/properties/properties/Review Comment",
+                "type": "string",
+                "title": "The Review comment Schema",
+                "default": "",
+                "examples": [
+                  "Clean, nice hotel"
+                ],
+                "pattern": "^(.*)$"
+              },
+              "Star Rating": {
+                "$id": "#/properties/features/items/properties/properties/properties/Star Rating",
+                "type": "integer",
+                "title": "The Star rating Schema",
+                "default": 0,
+                "examples": [
+                  5
+                ]
+              },
+              "Updated": {
+                "$id": "#/properties/features/items/properties/properties/properties/Updated",
+                "type": "string",
+                "title": "The Updated Schema",
+                "default": "",
+                "examples": [
+                  "2016-05-12T05:40:20Z"
+                ],
+                "pattern": "^(.*)$"
+              }
+            }
+          },
+          "type": {
+            "$id": "#/properties/features/items/properties/type",
+            "type": "string",
+            "title": "The Type Schema",
+            "default": "",
+            "examples": [
+              "Feature"
+            ],
+            "pattern": "^(.*)$"
+          }
+        }
+      }
+    }
+  }
+}
