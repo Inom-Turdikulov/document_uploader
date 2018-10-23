@@ -26,7 +26,7 @@
 // check demo in browsers/fix stuff
 
 // Global Variables
-var remoteURL = 'http://localhost:8888/json_parse.php';
+var remoteURL = 'https://broin-inomoz.c9users.io/hello-world.php';
 var globalDataPoints = [];
 var $pointsTableReviews = $('#pointsTableReviews > tbody');
 var $pointsTableLocations = $('#pointsTableLocations > tbody');
