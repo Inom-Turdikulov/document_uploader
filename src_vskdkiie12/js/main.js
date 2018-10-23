@@ -46,6 +46,9 @@ var $locationsElements = $('[data-toggle="found-locations"]');
 var reviewsElementsShow = false;
 var locationsElementsShow = false;
 
+// Progress spinner
+var $progressSpinner = $('.cssload-container');
+
 // Init defaults
 var totalLoadedFiles = 0;
 var _map, _markerCluster;
@@ -234,7 +237,7 @@ $(function() {
   });
 
 
-  // Here we submit data
+  // HERE WE SUBMIT DATA
   $submitButtonTrigger.click(function (e) {
     e.preventDefault();
 
@@ -258,7 +261,9 @@ $(function() {
 
     if (points.length > 0){
       var request = new XMLHttpRequest();
+
       request.open('POST', remoteURL, true);
+      $progressSpinner.addClass('show');
 
       request.onload = function() {
         if (request.status >= 200 && request.status < 400) {
@@ -281,11 +286,14 @@ $(function() {
           // We reached our target server, but it returned an error
           $notificationsWrapper.bs_alert('Serverside error, pleas try again!', '', 10, 'alert-danger');
         }
+
+        $progressSpinner.removeClass('show');
       };
 
       request.onerror = function() {
         // There was a connection error of some sort
         $notificationsWrapper.bs_alert('Some error occurred, pleas try again!', '', 10, 'alert-danger');
+        $progressSpinner.removeClass('show');
       };
 
       request.send(JSON.stringify(points));
@@ -311,6 +319,12 @@ $(function() {
   if (window.File && window.FileList && window.FileReader) {
     var $dropContainer = $('[data-toggle="drop-container"]'),
       $jsonDrop        = $("#jsonDrop");
+
+    if (/MSIE/.test(navigator.userAgent)) {
+      $jsonDrop.replaceWith($(this).clone(true));
+    } else {
+      $jsonDrop.val('');
+    }
 
     $jsonDrop.on("dragover", function (e) {
       e.stopPropagation();
