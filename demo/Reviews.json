@@ -25,6 +25,29 @@
       "type" : "Feature"
     },
     {
+      "geometry" : {
+        "coordinates" : [ -73.9151476, 40.7633802 ],
+        "type" : "Point"
+      },
+      "properties" : {
+        "Google Maps URL" : "http://maps.google.com/?cid=18371411157999637612",
+        "Location" : {
+          "Address" : "30-13 Steinway Street, Astoria, NY 11103, United States",
+          "Business Name" : "Rizzo's Fine Pizza (form Review DUPLICATE)",
+          "Country Code" : "US",
+          "Geo Coordinates" : {
+            "Latitude" : "40.7633802",
+            "Longitude" : "-73.9151476"
+          }
+        },
+        "Published" : "2016-05-12T05:40:20Z",
+        "Review Comment" : "Clean, nice pizza!",
+        "Star Rating" : 5,
+        "Updated" : "2016-05-12T05:40:20Z"
+      },
+      "type" : "Feature"
+    },
+    {
     "geometry" : {
       "coordinates" : [ -87.6315923, 41.8947204 ],
       "type" : "Point"

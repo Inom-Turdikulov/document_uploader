@@ -219,7 +219,7 @@ body,
   background: black;
 }
 
-.invisble:checked ~ label #on {
+.invisble:checked ~ label .select {
   background: #fff;
   left: 100%;
   margin-left: -1.3rem;

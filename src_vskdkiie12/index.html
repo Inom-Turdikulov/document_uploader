@@ -68,25 +68,25 @@
     </div>
   </div>
   <div id="pointsTableFormCollapse" class="container collapse">
-    <div class="row">
-      <div class="col-6">
-        <p class="h2">Your points to upload:</p>
-      </div>
-      <div class="col-6 align-self-center text-right">
-        <div class="switcher-label">Select All/None</div>
-
-        <div class="switcher-default">
-          <input type="checkbox" class="invisble" id="slectPointsSwitcher" checked="checked">
-          <label for="slectPointsSwitcher" class="switcher">
-            <span id="on"></span>
-          </label>
-        </div>
-      </div>
-    </div>
-
     <div class="table-responsive-sm points-table-w">
-      <form id="pointsTableForm" action="https://postman-echo.com/post" method="post">
-        <table class="table table-bordered table-striped table-sm points-table" id="points-table">
+      <form id="pointsTableForm" action="" method="post">
+        <div class="row d-none" data-toggle="found-reviews">
+          <div class="col-6">
+            <p class="h2">Found Reviews</p>
+          </div>
+          <div class="col-6 align-self-center text-right">
+            <div class="switcher-label">Select All/None</div>
+
+            <div class="switcher-default">
+              <input id="slectPointsSwitcher1" type="checkbox" class="invisble" data-toggle-checkboxes="#pointsTableReviews" checked="checked">
+              <label for="slectPointsSwitcher1" class="switcher">
+                <span class="select"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <table class="table table-bordered table-striped table-sm points-table d-none" id="pointsTableReviews" data-toggle="found-reviews">
         <thead>
         <tr>
           <th class="item1">
@@ -105,7 +105,44 @@
         <tbody>
 
         </tbody>
-      </table>
+        </table>
+
+        <div class="row d-none" data-toggle="found-locations">
+          <div class="col-6">
+            <p class="h2">Found Locations</p>
+          </div>
+          <div class="col-6 align-self-center text-right">
+            <div class="switcher-label">Select All/None</div>
+
+            <div class="switcher-default">
+              <input id="slectPointsSwitcher2" type="checkbox" class="invisble" data-toggle-checkboxes="#pointsTableLocations" checked="checked">
+              <label for="slectPointsSwitcher2" class="switcher">
+                <span class="select"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <table class="table table-bordered table-striped table-sm points-table d-none" id="pointsTableLocations"  data-toggle="found-locations">
+          <thead>
+          <tr>
+            <th class="item1">
+              Include
+            </th>
+            <th class="item2">Place Name</th>
+            <th class="item3">Address</th>
+            <th class="item4">Review</th>
+            <th class="item5">Rating</th>
+            <th class="item6">Date Upload</th>
+            <th class="item7">Lat</th>
+            <th class="item8">Long</th>
+            <th class="item9">Google CID</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
       </form>
     </div>
   </div>

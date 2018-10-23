@@ -19,10 +19,20 @@
 // Todo check json blob
 // Todo check fileSize
 
+// Update UI to seperate Found Reviews vs Found Locations. Found Review should only include locations that have a review added. Found Locations should only include locations that do not have reviews added.
+// PHP Script to pull all checked locations into a PHP array and print it out (I will hook up from that location)
+// Resolve issue with markercluster
+// Check uploader in newest versions of Safari, Firefox, Edge, and Chrome to confirm functionality works. (We will not be allowing this page on mobile devices)
+// check demo in browsers/fix stuff
+
 // Global Variables
-var $wrapper = $('#points-table'); // Table with results
+var remoteURL = 'http://localhost:8888/json_parse.php';
+var globalDataPoints = [];
+var $pointsTableReviews = $('#pointsTableReviews > tbody');
+var $pointsTableLocations = $('#pointsTableLocations > tbody');
+
 var $notificationsWrapper = $('.uploader-container > .container:first-child'); // Where show alerts
-var $slectPointsSwitcher = $('#slectPointsSwitcher');
+var $slectPointsSwitchers = $('[data-toggle-checkboxes]');
 var $totalFilesEl = $('#totalFiles');
 
 var $pointsTableForm = $('#pointsTableForm');
@@ -31,10 +41,14 @@ var $pointsTableFormCollapse = $('#pointsTableFormCollapse');
 var maxFileSize = 0; // JSON file size limit
 var $submitButtonTrigger = $('#pointsUpload');
 
+var $reviewsElements = $('[data-toggle="found-reviews"]');
+var $locationsElements = $('[data-toggle="found-locations"]');
+var reviewsElementsShow = false;
+var locationsElementsShow = false;
+
 // Init defaults
 var totalLoadedFiles = 0;
 var _map, _markerCluster;
-var globalPointsArray = [];
 var _markers = [];
 var dotsInitialized = false;
 
@@ -83,11 +97,22 @@ function parseData(jsonData, filename) {
     pointData['name'] = (((point || {})['properties'] || {})['Location'] || {})['Business Name'];
     pointData['address'] = (((point || {})['properties'] || {})['Location'] || {})['Address'];
     pointData['review'] = ((point || {})['properties'] || {})['Review Comment'];
-    pointData['review'] = ((point || {})['properties'] || {})['Review Comment'];
     pointData['rating'] = ((point || {})['properties'] || {})['Star Rating'];
     pointData['date'] = ((point || {})['properties'] || {})['Updated'];
     pointData['lat'] = ((((point || {})['properties'] || {})['Location'])['Geo Coordinates'] || {})['Latitude'];
     pointData['long'] = ((((point || {})['properties'] || {})['Location'])['Geo Coordinates'] || {})['Longitude'];
+
+    if (pointData['review'] && !reviewsElementsShow){
+      reviewsElementsShow = true;
+      $reviewsElements.removeClass('d-none');
+      console.log('reviews')
+    }
+
+    if (!pointData['review'] && !locationsElementsShow){
+      locationsElementsShow = true;
+      $locationsElements.removeClass('d-none');
+      console.log('locations')
+    }
 
     // CID specific
     var cid = ((point || "")['properties'] || "")['Google Maps URL'];
@@ -101,13 +126,6 @@ function parseData(jsonData, filename) {
       pointData['cid'] = '';
     }
 
-    // Add and merge duplicates items from jsonData!
-    indexes = $.map(globalPointsArray, function(obj, index) {
-      if(obj && obj.lat === pointData['lat'] && obj.long === pointData['long']) {
-        return index;
-      }
-    });
-
     // Skip "not valid" markers
     var lat = parseFloat(pointData['lat']);
     var long = parseFloat(pointData['long']);
@@ -116,22 +134,33 @@ function parseData(jsonData, filename) {
       continue;
     }
 
+    // Check data variable (depending of type)
+    // Add and merge duplicates items from jsonData!
+    indexes = $.map(globalDataPoints, function(obj, index) {
+      if(obj && obj.lat === pointData['lat'] && obj.long === pointData['long']) {
+        return index;
+      }
+    });
+
     if (indexes.length){
       for (var j = 0, indexesLength = indexes.length; j < indexesLength; j++) {
-        $.extend(globalPointsArray[indexes[j]], pointData);
+        if (globalDataPoints[indexes[j]]['review'] && !(pointData['review'])){
+          continue // skip if point already have review!
+        }
 
-
-        writeUpdateRow($wrapper.find('tbody'), globalPointsArray[indexes[j]], indexes[j], indexes[j]);
+        globalDataPoints[indexes[j]] = pointData;
+        writeUpdateRow(globalDataPoints[indexes[j]], indexes[j], indexes[j]);
       }
     }
     else{
-      globalPointsArray.push(pointData);
+      // Just add new item
+      globalDataPoints.push(pointData);
 
       // New marker
       var marker = new google.maps.Marker({position: new google.maps.LatLng(lat, long)});
       _markers.push(marker);
 
-      writeUpdateRow($wrapper.find('tbody'), pointData, globalPointsArray.length - 1)
+      writeUpdateRow(pointData, globalDataPoints.length - 1)
     }
   }
 
@@ -143,8 +172,13 @@ function parseData(jsonData, filename) {
   }
 }
 
-function writeUpdateRow($wrapper, pointData, id, index){
+function writeUpdateRow(pointData, id, index){
   index = typeof index !== 'undefined' ? index : -1;
+
+  var $wrapper = $pointsTableReviews;
+  if (!pointData['review']){
+    $wrapper = $pointsTableLocations;
+  }
 
   // New row
   var $newRow = $('<tr>', {});
@@ -154,6 +188,7 @@ function writeUpdateRow($wrapper, pointData, id, index){
     append: $('<input>', {
       type: 'checkbox',
       id: 'point-' + id,
+      'data-id': id,
       name: 'points[]',
       checked: 'checked'
     })
@@ -165,7 +200,7 @@ function writeUpdateRow($wrapper, pointData, id, index){
   }
 
   if (index >= 0){
-    $wrapper.find('tr').eq(index).replaceWith($newRow);
+    $pointsTableForm.find('#point-' + id).closest('tr').replaceWith($newRow);
   }
   else{
     $wrapper.append($newRow);
@@ -174,8 +209,8 @@ function writeUpdateRow($wrapper, pointData, id, index){
 
 // Main Code
 $(function() {
-  // Click on $wrapper tr, activates it's checkbox
-  $wrapper.on('click', 'tr', function(e) {
+  // Click on $pointsTableForm tr, activates it's checkbox
+  $pointsTableForm.on('click', 'tr', function(e) {
     $currentCheckbox = $(this).find('input[type=checkbox]');
 
     if (! $(e.target).is($currentCheckbox)){
@@ -185,24 +220,85 @@ $(function() {
     }
   });
 
-  $slectPointsSwitcher.click(function () {
-    $checkboxes = $wrapper.find('input[type=checkbox]');
-    $checkboxes.prop('checked', $slectPointsSwitcher.prop("checked")).change();
+  $slectPointsSwitchers.each(function () {
+    var $slectPointsSwitcher = $(this);
+
+    $slectPointsSwitcher.click(function () {
+      $checkboxes = $($(this).data('toggleCheckboxes')).find('input[type=checkbox]');
+      $checkboxes.prop('checked', $slectPointsSwitcher.prop("checked")).change();
+    });
   });
 
-  $submitButtonTrigger.click(function () {
-    var activeCheckboxesLength = $wrapper.find('input[type=checkbox]:checked').length;
-    if (activeCheckboxesLength > 0){
-      $pointsTableForm.submit();
+  $pointsTableForm.submit(function(e){
+    e.preventDefault();
+  });
+
+
+  // Here we submit data
+  $submitButtonTrigger.click(function (e) {
+    e.preventDefault();
+
+    var inactiveCheckboxes = $pointsTableForm.find('input[data-id]').not(':checked');
+    var points;
+
+    if (inactiveCheckboxes.length === globalDataPoints.length){
+      points = [];
+    }
+    else if (inactiveCheckboxes.length === 0){
+      points = globalDataPoints;
+    }
+    else{
+      points = globalDataPoints.slice(0);
+
+      for (var i = inactiveCheckboxes.length - 1; i >= 0; i--) {
+        var index = parseInt($(inactiveCheckboxes[i]).data('id'));
+        points.splice( index, 1 );
+      }
+    }
+
+    if (points.length > 0){
+      var request = new XMLHttpRequest();
+      request.open('POST', remoteURL, true);
+
+      request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+          $('body').find('.random-result').remove();
+
+          // Success!
+          var data = JSON.parse(request.responseText);
+          var $result = $('<div>', {'class': 'random-result'});
+
+          $result.append('<p> Redirect to ' + data['redirectUrl'] + ' in 10 seconds</p>');
+          $result.append('<code style="font-size: 10px">' + JSON.stringify(data['sendingData'].slice(1, 5)) + '</code>');
+          $result.append('<hr>');
+          $result.append('<code style="font-size: 10px">' + JSON.stringify(data['sendingData'].slice(-5, -1))  + '</code>');
+          $('body').prepend($result);
+
+          window.setTimeout(function (e) {
+            window.location.href = data['redirectUrl'];
+          }, 10000)
+        } else {
+          // We reached our target server, but it returned an error
+          $notificationsWrapper.bs_alert('Serverside error, pleas try again!', '', 10, 'alert-danger');
+        }
+      };
+
+      request.onerror = function() {
+        // There was a connection error of some sort
+        $notificationsWrapper.bs_alert('Some error occurred, pleas try again!', '', 10, 'alert-danger');
+      };
+
+      request.send(JSON.stringify(points));
     }
     else{
       if (dotsInitialized){
-        $notificationsWrapper.bs_alert('Failed to load points, please select at least one!', '', 10, 'alert-danger');
+        $notificationsWrapper.bs_alert('Please select at least one point!', '', 10, 'alert-danger');
       }
       else{
-        $notificationsWrapper.bs_alert('Failed to load points, please load some and select at least one!', '', 10, 'alert-danger');
+        $notificationsWrapper.bs_alert('Failed to load points, please load and select at least one!', '', 10, 'alert-danger');
       }
     }
+
   });
 
   // Google Maps Init
