@@ -1,30 +1,3 @@
-// generate map
-// fit bounds
-// var ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
-// var validate = ajv.compile(pointsJsonSchema);
-// var valid = validate(jsonData);
-// if (!valid) console.log(validate.errors);
-// Main keys:
-// lat, long
-// if exist updata
-// else add new
-// if exist append
-// Load 1 on 2 json files
-// Sort by coords (distance)
-// Merge equals
-// Load json/generate marks
-// Center Map
-// ....
-// Todo onerror
-// Todo check json blob
-// Todo check fileSize
-
-// Update UI to seperate Found Reviews vs Found Locations. Found Review should only include locations that have a review added. Found Locations should only include locations that do not have reviews added.
-// PHP Script to pull all checked locations into a PHP array and print it out (I will hook up from that location)
-// Resolve issue with markercluster
-// Check uploader in newest versions of Safari, Firefox, Edge, and Chrome to confirm functionality works. (We will not be allowing this page on mobile devices)
-// check demo in browsers/fix stuff
-
 // Global Variables
 var remoteURL = 'https://broin-inomoz.c9users.io/hello-world.php';
 var globalDataPoints = [];
@@ -357,11 +330,11 @@ $(function() {
       $dropContainer.removeClass('border-danger');
       var reader = new FileReader();
       reader.onerror = function(e){
+        $notificationsWrapper.bs_alert('Some error occurred, pleas try again!', '', 10, 'alert-danger');
         console.log(e);
       };
       // fetch FileList object
       if (e.type === 'drop'){
-        console.log(e.type)
         files = e.originalEvent.dataTransfer.files;
       }
       else{
