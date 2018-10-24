@@ -28,7 +28,7 @@ body,
 
 .points-table td,
 .points-table th{
-  overflow-x: hidden;
+  overflow: hidden;
   width: 8%;
 }
 
@@ -108,6 +108,15 @@ body,
 .drop-zone{
   pointer-events: none;
   position: relative;
+}
+
+.drop-zone > .cssload-container{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
 }
 
 .drop-zone > .form-group  > .filesbadge{
@@ -233,7 +242,7 @@ body,
   position: absolute;
   bottom: 0;
   left: 0;
-  z-index: 3;
+  z-index: 1;
 }
 
 .map-default > .cssload-container{
@@ -244,10 +253,6 @@ body,
   left: 0;
   width: 100%;
   z-index: 2;
-}
-
-.map-default > .cssload-container.show{
-  z-index: 3;
 }
 
 #google_map{

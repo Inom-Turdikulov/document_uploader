@@ -48,7 +48,8 @@ var locationsElementsShow = false;
 
 // Progress spinner
 var successRedirectTimeout = 0; // Change to enable redirect
-var $progressSpinner = $('.cssload-container');
+var $progressSpinnerUpload = $('#progressSpinnerUpload');
+var $progressSpinnerParse = $('#progressSpinnerParse');
 
 // Init defaults
 var totalLoadedFiles = 0;
@@ -266,7 +267,7 @@ $(function() {
       var request = new XMLHttpRequest();
 
       request.open('POST', remoteURL, true);
-      $progressSpinner.addClass('show');
+      $progressSpinnerUpload.removeClass('d-none');
 
       request.onload = function() {
         if (request.status >= 200 && request.status < 400) {
@@ -291,7 +292,7 @@ $(function() {
           $notificationsWrapper.bs_alert('Serverside error, pleas try again!', '', 10, 'alert-danger');
         }
 
-        $progressSpinner.removeClass('show');
+        $progressSpinnerUpload.addClass('d-none');
       };
 
       request.onerror = function() {
@@ -330,21 +331,24 @@ $(function() {
       $jsonDrop.val('');
     }
 
-    $jsonDrop.on("dragover", function (e) {
-      e.stopPropagation();
+    $jsonDrop.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
       e.preventDefault();
+      e.stopPropagation();
+    });
+
+    $jsonDrop.on("dragover", function (e) {
       $dropContainer.addClass('border-danger');
     });
 
     $jsonDrop.on("dragleave", function (e) {
-      e.stopPropagation();
-      e.preventDefault();
       $dropContainer.removeClass('border-danger');
     });
 
-    $jsonDrop.on("drop, change", function (e) {
-      e.stopPropagation();
+    $jsonDrop.on("drop change", function (e) {
+      var files;
       e.preventDefault();
+      e.stopPropagation();
+      $progressSpinnerParse.removeClass('d-none');
 
       dotsInitialized = true;
 
@@ -352,12 +356,21 @@ $(function() {
 
       $dropContainer.removeClass('border-danger');
       var reader = new FileReader();
-      reader.onerror = function(e){};
-
+      reader.onerror = function(e){
+        console.log(e);
+      };
       // fetch FileList object
-      var files = e.target.files || e.dataTransfer.files;
+      if (e.type === 'drop'){
+        console.log(e.type)
+        files = e.originalEvent.dataTransfer.files;
+      }
+      else{
+        files = e.target.files;
+      }
+
       var invalidPointsNum = 0;
       var filesIterator = 0;
+
 
       // process all File objects
       for (var i = 0, f; f = files[i]; i++) {
@@ -399,6 +412,8 @@ $(function() {
 
             $totalFilesEl.html('JSON files loaded: <span class="badge badge-secondary">' + totalLoadedFiles + '</span>');
             $totalFilesEl.addClass('show');
+
+            $progressSpinnerParse.addClass('d-none');
           }
 
           filesIterator += 1;
