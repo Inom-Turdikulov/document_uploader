@@ -47,6 +47,7 @@ var reviewsElementsShow = false;
 var locationsElementsShow = false;
 
 // Progress spinner
+var successRedirectTimeout = 0; // Change to enable redirect
 var $progressSpinner = $('.cssload-container');
 
 // Init defaults
@@ -108,13 +109,11 @@ function parseData(jsonData, filename) {
     if (pointData['review'] && !reviewsElementsShow){
       reviewsElementsShow = true;
       $reviewsElements.removeClass('d-none');
-      console.log('reviews')
     }
 
     if (!pointData['review'] && !locationsElementsShow){
       locationsElementsShow = true;
       $locationsElements.removeClass('d-none');
-      console.log('locations')
     }
 
     // CID specific
@@ -148,9 +147,11 @@ function parseData(jsonData, filename) {
     if (indexes.length){
       for (var j = 0, indexesLength = indexes.length; j < indexesLength; j++) {
         if (globalDataPoints[indexes[j]]['review'] && !(pointData['review'])){
+          console.log('Skipping ' + pointData['name'] +  'element (no review)');
           continue // skip if point already have review!
         }
 
+        console.log('Replacing ' + indexes[j]['name'] + ' to ' + pointData['name']);
         globalDataPoints[indexes[j]] = pointData;
         writeUpdateRow(globalDataPoints[indexes[j]], indexes[j], indexes[j]);
       }
@@ -212,6 +213,8 @@ function writeUpdateRow(pointData, id, index){
 
 // Main Code
 $(function() {
+  $('.disabled-div').removeClass('disabled-div');
+
   // Click on $pointsTableForm tr, activates it's checkbox
   $pointsTableForm.on('click', 'tr', function(e) {
     $currentCheckbox = $(this).find('input[type=checkbox]');
@@ -273,15 +276,16 @@ $(function() {
           var data = JSON.parse(request.responseText);
           var $result = $('<div>', {'class': 'random-result'});
 
-          $result.append('<p> Redirect to ' + data['redirectUrl'] + ' in 10 seconds</p>');
-          $result.append('<code style="font-size: 10px">' + JSON.stringify(data['sendingData'].slice(1, 5)) + '</code>');
+          $result.append('<code style="font-size: 10px">' + JSON.stringify(data['sendingData'])  + '</code>');
           $result.append('<hr>');
-          $result.append('<code style="font-size: 10px">' + JSON.stringify(data['sendingData'].slice(-5, -1))  + '</code>');
           $('body').prepend($result);
 
-          window.setTimeout(function (e) {
-            window.location.href = data['redirectUrl'];
-          }, 10000)
+          if (successRedirectTimeout > 0){
+            window.setTimeout(function () {
+              window.location.href = data['redirectUrl'];
+            }, successRedirectTimeout)
+          }
+
         } else {
           // We reached our target server, but it returned an error
           $notificationsWrapper.bs_alert('Serverside error, pleas try again!', '', 10, 'alert-danger');

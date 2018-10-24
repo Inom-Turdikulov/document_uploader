@@ -246,6 +246,10 @@ body,
   z-index: 2;
 }
 
+.map-default > .cssload-container.show{
+  z-index: 3;
+}
+
 #google_map{
   border-radius: .25rem;
 }
@@ -303,6 +307,11 @@ body,
   -ms-animation: cssload-rotate 2300ms linear infinite;
   -webkit-animation: cssload-rotate 2300ms linear infinite;
   -moz-animation: cssload-rotate 2300ms linear infinite;
+}
+
+.disabled-div {
+  pointer-events: none;
+  opacity: 0.4;
 }
 
 @keyframes cssload-rotate {
